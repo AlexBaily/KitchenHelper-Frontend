@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth0 } from "../utils/react-auth0-spa";
 
 const LocationApi = () => {
@@ -32,12 +32,18 @@ const LocationApi = () => {
     }
   };
 
+  useEffect(() => {
+    callApi()
+  });
+
 
   return (
     <>
       <h1>Location API</h1>
-      <button onClick={callApi}>Get locations</button>
-      {showResult && <code>{apiMessage}</code>}
+      <ul>
+        <li>{showResult && <code>{apiMessage}</code>} </li>
+      </ul>
+      
     </>
   );
 };
