@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Button } from '@material-ui/core';
 import { useAuth0 } from "../utils/react-auth0-spa";
+import AddLocForm from "../components/AddLocForm"
 
 const LocationApi = () => {
   const [showResult, setShowResult] = useState(false);
   const [apiMessage, setApiMessage] = useState("");
+  const [showForm, setShowForm] = useState(null);
   const { loading, getTokenSilently } = useAuth0();
 
   const callApi = async () => {
@@ -36,15 +39,24 @@ const LocationApi = () => {
     callApi()
   });
 
+  const toggleForm = () => {
+    
+    showForm == null || showForm == false ? setShowForm(true) : setShowForm(false)
+    console.log(showForm)
+  }
+
+
 
   return (
-    <>
+    <div>
       <h1>Location API</h1>
       <ul>
         <li>{showResult && <code>{apiMessage}</code>} </li>
       </ul>
-      
-    </>
+      <Button onClick={() => toggleForm()}>Add New Location
+      </Button>
+      {showForm && <code><AddLocForm /></code>}
+    </div>
   );
 };
 

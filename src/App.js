@@ -1,27 +1,33 @@
 import React from "react";
-import NavBar from "./components/NavBar";
-import PrivateRoute from "./components/PrivateRoute";
-import { Router, Route, Switch } from "react-router-dom";
-import Profile from "./components/Profile";
-import history from "./utils/history";
-import LocationApi from "./views/LocationApi";
+import { Container } from '@material-ui/core';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import UriRouter from './routers/routes';
+
+const subCont = createMuiTheme({
+  overrides: {
+    MuiContainer: {
+      root: {
+        margin: '0',
+        padding: '0',
+        backgroundColor: 'transparent',
+        width: '100%',
+        maxWidth: '100%',
+      },
+    },
+  },
+});
+
 
 function App() {
-
   
   return (
+    <ThemeProvider theme={subCont}>
     <div className="App">
-      <Router history={history}>
-        <header>
-          <NavBar />
-        </header>
-        <Switch>
-          <Route path="/" exact />
-          <PrivateRoute path="/profile" component={Profile} />
-          <PrivateRoute path="/location" component={LocationApi} />
-        </Switch>
-      </Router>
+        <Container >
+          <UriRouter />
+        </Container>
     </div>
+    </ThemeProvider>
   );
 }
 
